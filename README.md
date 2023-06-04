@@ -1,6 +1,15 @@
 # MitmproxyApple
 First tests with network extension to implement mitmproxy transparent proxy with swift on macos
 
+## File Structure
+
+### MVC pattern:
+
+* *MitmproxyApple/Controller/Viewcontroller.swift*: where there is button management, event triggering, and GUI logic
+* *MitmproxyApple/Model/Proxy.swift*: data model and behavior (the actual brain)
+* *MitmproxyApple/View/Base.lproj/Main.storyboard*: storyboard
+* *MitmproxyAppleExtension/AppProxyProvider.swift*: The protocol of the extension and its cycle (where the packets are)
+
 ## Screenshots
 
 ### First start
