@@ -4,6 +4,7 @@ import SystemExtensions
 
 class ViewController: NSViewController {
     
+    @IBOutlet weak var pipeLabel: NSTextField!
     @IBOutlet weak var processList: NSPopUpButton!
     @IBOutlet weak var proxyButton: NSButton!
     @IBOutlet weak var statusLabel: NSTextField!
@@ -13,6 +14,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
+        self.proxy.setPipePath(withPath: CommandLine.arguments.last ?? "")
         self.updateRunningApplications()
         self.updateUI()
     }
@@ -71,12 +73,17 @@ class ViewController: NSViewController {
     }
     
     func updateUI(){
+        self.pipeLabel.stringValue = String("Pipe: \(proxy.pipe_path!)")
         proxyButton.title = proxy.proxyButtonString()
         statusLabel.stringValue = String("Status: \(proxy.status)")
         if proxy.status == .toInstall{
             clearButton.isEnabled = false
+        } else {
+            clearButton.isEnabled = true
         }
     }
+    
+
 }
 
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -674,7 +675,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="TransparentProxy" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="MitmproxyApple" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -704,7 +705,7 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="TransparentProxy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="MitmproxyApple" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -787,6 +788,14 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fwu-7f-iBe">
+                                <rect key="frame" x="20" y="23" width="38" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Pipe: " id="zQY-Bm-6AV">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstItem="unH-ua-CfO" firstAttribute="top" secondItem="iOR-0Q-OeA" secondAttribute="bottom" constant="8" id="5X4-tb-oUw"/>
@@ -796,10 +805,13 @@
                             <constraint firstItem="iOR-0Q-OeA" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="gSB-Mt-bcK"/>
                             <constraint firstItem="unH-ua-CfO" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="jkw-OY-vA3"/>
                             <constraint firstItem="iOR-0Q-OeA" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="sTJ-8Q-omB"/>
+                            <constraint firstAttribute="bottom" secondItem="fwu-7f-iBe" secondAttribute="bottom" constant="23" id="y8Q-U6-9aZ"/>
+                            <constraint firstItem="fwu-7f-iBe" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="22" id="zPv-5n-nBj"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="clearButton" destination="jH7-zR-JgM" id="4fl-8D-rBq"/>
+                        <outlet property="pipeLabel" destination="fwu-7f-iBe" id="1JB-Az-gbv"/>
                         <outlet property="processList" destination="hfV-Y7-SMx" id="1qD-dh-ST0"/>
                         <outlet property="proxyButton" destination="Umg-tR-Djo" id="rhm-yZ-d0z"/>
                         <outlet property="statusLabel" destination="unH-ua-CfO" id="B5h-i8-NZs"/>
@@ -811,6 +823,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="NSRefreshTemplate" width="17" height="20"/>
+        <image name="NSRefreshTemplate" width="18" height="21"/>
     </resources>
 </document>

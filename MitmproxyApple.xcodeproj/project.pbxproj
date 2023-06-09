@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,9 @@
 		04A7A4F72643C9AB0062DE97 /* AppProxyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A7A4F62643C9AB0062DE97 /* AppProxyProvider.swift */; };
 		04A7A4F92643C9AB0062DE97 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A7A4F82643C9AB0062DE97 /* main.swift */; };
 		04A7A4FE2643C9AB0062DE97 /* com.emanuele.mitmproxyApple.mitmproxyAppleExtension.systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = 04A7A4F32643C9AB0062DE97 /* com.emanuele.mitmproxyApple.mitmproxyAppleExtension.systemextension */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F341B7462A338650003424AE /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = F341B7452A338650003424AE /* SwiftProtobuf */; };
+		F341B7482A338650003424AE /* SwiftProtobufPluginLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = F341B7472A338650003424AE /* SwiftProtobufPluginLibrary */; };
+		F341B74A2A338650003424AE /* protoc-gen-swift in Frameworks */ = {isa = PBXBuildFile; productRef = F341B7492A338650003424AE /* protoc-gen-swift */; };
 		F36621582A29AE710049A8B5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36621572A29AE710049A8B5 /* Constants.swift */; };
 		F366215A2A29AF130049A8B5 /* Proxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36621592A29AF130049A8B5 /* Proxy.swift */; };
 /* End PBXBuildFile section */
@@ -67,6 +70,8 @@
 		04A7A4F82643C9AB0062DE97 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		04A7A4FA2643C9AB0062DE97 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04A7A4FB2643C9AB0062DE97 /* MitmproxyAppleExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MitmproxyAppleExtension.entitlements; sourceTree = "<group>"; };
+		F341B7422A335D5B003424AE /* MitmproxyAppleExtensionRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MitmproxyAppleExtensionRelease.entitlements; sourceTree = "<group>"; };
+		F341B7432A335E33003424AE /* MitmproxyAppleRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MitmproxyAppleRelease.entitlements; sourceTree = "<group>"; };
 		F36621572A29AE710049A8B5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F36621592A29AF130049A8B5 /* Proxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proxy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -83,7 +88,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F341B74A2A338650003424AE /* protoc-gen-swift in Frameworks */,
+				F341B7482A338650003424AE /* SwiftProtobufPluginLibrary in Frameworks */,
 				04A7A4F42643C9AB0062DE97 /* NetworkExtension.framework in Frameworks */,
+				F341B7462A338650003424AE /* SwiftProtobuf in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +120,7 @@
 		04A7A4BD2643AE450062DE97 /* MitmproxyApple */ = {
 			isa = PBXGroup;
 			children = (
+				F341B7432A335E33003424AE /* MitmproxyAppleRelease.entitlements */,
 				04A7A4BE2643AE450062DE97 /* AppDelegate.swift */,
 				F36621562A29ADD50049A8B5 /* Controller */,
 				F36621552A29ADCF0049A8B5 /* View */,
@@ -135,6 +144,7 @@
 		04A7A4F52643C9AB0062DE97 /* MitmproxyAppleExtension */ = {
 			isa = PBXGroup;
 			children = (
+				F341B7422A335D5B003424AE /* MitmproxyAppleExtensionRelease.entitlements */,
 				04A7A4F62643C9AB0062DE97 /* AppProxyProvider.swift */,
 				04A7A4F82643C9AB0062DE97 /* main.swift */,
 				04A7A4FA2643C9AB0062DE97 /* Info.plist */,
@@ -203,6 +213,11 @@
 			dependencies = (
 			);
 			name = MitmproxyAppleExtension;
+			packageProductDependencies = (
+				F341B7452A338650003424AE /* SwiftProtobuf */,
+				F341B7472A338650003424AE /* SwiftProtobufPluginLibrary */,
+				F341B7492A338650003424AE /* protoc-gen-swift */,
+			);
 			productName = TransparentProxyExtension;
 			productReference = 04A7A4F32643C9AB0062DE97 /* com.emanuele.mitmproxyApple.mitmproxyAppleExtension.systemextension */;
 			productType = "com.apple.product-type.system-extension";
@@ -233,6 +248,9 @@
 				Base,
 			);
 			mainGroup = 04A7A4B22643AE450062DE97;
+			packageReferences = (
+				F341B7442A338650003424AE /* XCRemoteSwiftPackageReference "swift-protobuf" */,
+			);
 			productRefGroup = 04A7A4BC2643AE450062DE97 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -401,8 +419,9 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_NS_ASSERTIONS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -414,6 +433,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -450,7 +470,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = MitmproxyApple/MitmproxyApple.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MitmproxyApple/MitmproxyAppleRelease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -492,9 +512,10 @@
 		04A7A5012643C9AB0062DE97 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = MitmproxyAppleExtension/MitmproxyAppleExtension.entitlements;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_ENTITLEMENTS = MitmproxyAppleExtension/MitmproxyAppleExtensionRelease.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = S8XHQB96PW;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = MitmproxyAppleExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -503,6 +524,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.emanuele.mitmproxyApple.mitmproxyAppleExtension;
 				PRODUCT_NAME = "$(inherited)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -541,6 +563,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F341B7442A338650003424AE /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-protobuf.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F341B7452A338650003424AE /* SwiftProtobuf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F341B7442A338650003424AE /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobuf;
+		};
+		F341B7472A338650003424AE /* SwiftProtobufPluginLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F341B7442A338650003424AE /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobufPluginLibrary;
+		};
+		F341B7492A338650003424AE /* protoc-gen-swift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F341B7442A338650003424AE /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = "protoc-gen-swift";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 04A7A4B32643AE450062DE97 /* Project object */;
 }

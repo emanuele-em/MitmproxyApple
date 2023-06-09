@@ -13,14 +13,18 @@ class Proxy {
     var status: Status = .toInstall
     let bundleIdentifier = K.bundleIdentifier
     var appRules = [NEAppRule]()
+    var pipe_path: String? = nil
     
     func startTunnel() async {
         do{
             await installManager()
             print("manager is set")
             let manager = await enable()
-            try manager?.connection.startVPNTunnel(options: [:])
+            let session = manager?.connection as? NETunnelProviderSession
+            try session?.startTunnel(options: [:])
+            try session?.sendProviderMessage(self.pipe_path!.data(using: .utf8)!)
             updateStatus(to: .running)
+            
         } catch {
             print("error: \(error)")
         }
@@ -37,15 +41,16 @@ class Proxy {
         if targetIdentifier == K.allNetwork{
             self.appRules.removeAll()
         } else {
-            let designatedRequirement = getDesignatedRequirement(for: targetIdentifier) ?? "identifier \"\(targetIdentifier)\" and anchor apple"
-            let appRule = NEAppRule(signingIdentifier: targetIdentifier, designatedRequirement: designatedRequirement)
-            self.appRules.append(appRule)
+            let appRule = NEAppRule(signingIdentifier: targetIdentifier, designatedRequirement: "(identifier \"com.google.Chrome\" or identifier \"com.google.Chrome.beta\" or identifier \"com.google.Chrome.dev\" or identifier \"com.google.Chrome.canary\") and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = EQHXZ8M8AV")
+            print(getDesignatedRequirement(for: targetIdentifier))
+            self.appRules = [appRule]
         }
     }
     
     func getManager() async -> NEAppProxyProviderManager {
         do {
             let managers = try await NEAppProxyProviderManager.loadAllFromPreferences()
+            print("there are \(managers.count) managers")
             let appManager = managers.first ?? NEAppProxyProviderManager()
             return appManager
         } catch let error1 {
@@ -54,10 +59,10 @@ class Proxy {
         }
     }
     
-    func getDesignatedRequirement(for bundleIdentifier: String) -> String? {
+    func getDesignatedRequirement(for bundleIdentifier: String) -> String {
         guard let appURL = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleIdentifier) else {
             print("Could not find the application with bundle identifier: \(bundleIdentifier)")
-            return nil
+            return ""
         }
         
         var appSec: SecStaticCode?
@@ -68,10 +73,10 @@ class Proxy {
         
         var requirementString: CFString?
         if SecRequirementCopyString(requirement!, [], &requirementString) == errSecSuccess {
-            return requirementString as String?
+            return requirementString! as String
         } else {
             print("Failed to retrieve the designated requirement string.")
-            return nil
+            return ""
         }
     }
 
@@ -89,6 +94,7 @@ class Proxy {
     func enable() async -> NEAppProxyProviderManager?{
         let manager = await getManager()
         manager.isEnabled = true
+        manager.appRules = self.appRules
         do{
             try await manager.saveToPreferences()
             return manager
@@ -99,16 +105,15 @@ class Proxy {
     }
     
     func installManager() async{
-            let manager = await getManager()
             let config = NETunnelProviderProtocol()
-        
             config.providerBundleIdentifier = self.bundleIdentifier
             config.providerConfiguration = K.providerConfiguration
             config.serverAddress = K.serverAddress
+        
+            let manager = await getManager()
             manager.appRules = self.appRules
             manager.localizedDescription = K.localizedDescription
             manager.protocolConfiguration = config
-            
             do{
                 try await manager.saveToPreferences()
             } catch {
@@ -122,6 +127,7 @@ class Proxy {
                 print("PPPP - load error: %@", error!.localizedDescription)
                 return
             }
+            
             for manager in managers ?? [] {
                 manager.removeFromPreferences(completionHandler: nil)
             }
@@ -141,5 +147,8 @@ class Proxy {
         }
     }
     
+    func setPipePath(withPath path: String){
+        self.pipe_path = path
+    }
 }
 
