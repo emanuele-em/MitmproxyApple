@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+message UDPPacket {
+  string sourceAddress = 1;
+  string destinationAddress = 2;
+  uint32 sourcePort = 3;
+  uint32 destinationPort = 4;
+  bytes payload = 5;
+}
